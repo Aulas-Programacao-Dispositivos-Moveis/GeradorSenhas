@@ -2,6 +2,7 @@ import { Feather, MaterialCommunityIcons } from "@expo/vector-icons";
 import { setStringAsync } from "expo-clipboard";
 import { useState } from "react";
 import { Pressable, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import Toast from "react-native-toast-message";
 import { colors } from "../const/Colors";
 
 type PasswordItemProps = {
@@ -14,8 +15,12 @@ export function PasswordItem({ data, removePassword }: PasswordItemProps) {
 
     const copyToClipboard = async () => {
         await setStringAsync(data);
-        //ToastAndroid.show("Senha copiada!", ToastAndroid.SHORT);
-        alert("Senha copiada!");
+        // alert("Senha copiada!");
+        Toast.show({
+            type: "success",
+            text1: "Senha copiada!",
+            visibilityTime: 2000,
+        });
     }
 
     return (
