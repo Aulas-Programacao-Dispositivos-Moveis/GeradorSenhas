@@ -1,14 +1,27 @@
+import { useState } from "react";
 import { Modal, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { colors } from "../const/Colors";
+import useStorage from "../hooks/useStorage";
 
 interface PasswordModalProps {
   visible: boolean;
   password: string;
   onClose: () => void;
-  onSave: () => void;
 }
 
-export default function PasswordModal({ visible, password, onClose, onSave }: PasswordModalProps) {
+export default function PasswordModal({ visible, password, onClose }: PasswordModalProps) {
+  const { saveItem } = useStorage();
+  const [saved, setSaved] = useState(false);
+
+  async function handleSavePassword() {
+    await saveItem("@pass", password);
+    setSaved(true);
+    setTimeout(() => {
+      onClose();
+      setSaved(false);
+    }, 3000)
+  }
+
   return (
     <Modal
       visible={visible}
@@ -28,10 +41,18 @@ export default function PasswordModal({ visible, password, onClose, onSave }: Pa
               <Text style={styles.backButton}>Voltar</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.saveButton} onPress={onSave}>
+            <TouchableOpacity style={styles.saveButton} onPress={handleSavePassword}>
               <Text style={styles.saveButtonText}>Salvar senha</Text>
             </TouchableOpacity>
           </View>
+
+          {saved ? (
+            <Text
+              style={styles.passwordSavedText}
+            >Senha salva com sucesso!</Text>
+          ) : (
+            <></>
+          )}
         </View>
       </View>
     </Modal>
@@ -91,4 +112,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "600",
   },
+  passwordSavedText: {
+    color: "#00a015",
+    fontWeight: "bold"
+  }
 });

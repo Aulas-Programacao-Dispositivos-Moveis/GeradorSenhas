@@ -1,3 +1,4 @@
+
 class Senha {
     gerarSenha(cumprimentoSenha: number) {
         const charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%";
@@ -9,7 +10,6 @@ class Senha {
 
         return password;
     }
-
 }
 
 export default new Senha();
