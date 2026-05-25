@@ -56,10 +56,6 @@ export default function Index() {
         visible={modalVisible}
         password={password}
         onClose={() => setModalVisible(false)}
-        onSave={() => {
-          // salvar senha
-          setModalVisible(false);
-        }}
       />
     </SafeAreaView>
   );
