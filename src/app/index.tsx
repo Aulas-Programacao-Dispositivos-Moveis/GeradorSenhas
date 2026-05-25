@@ -2,10 +2,15 @@ import Slider from '@react-native-community/slider';
 import { useState } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import PasswordModal from '../components/passwordModal';
 import { colors } from "../const/Colors";
+import Senha from '../utils/Senha';
 
 export default function Index() {
-  const [ passwordLength, setPasswordLength ] = useState(8);
+  const [passwordLength, setPasswordLength] = useState(8);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [password, setPassword] = useState("");
+
   return (
     <SafeAreaView
       style={{
@@ -36,12 +41,26 @@ export default function Index() {
         thumbSize={16}
       />
 
-      <TouchableOpacity 
-        style={ styles.botao }
-        onPress={() => alert(`Passwd len. ${passwordLength}`)}  
+      <TouchableOpacity
+        style={styles.botao}
+        onPress={() => { 
+          setPassword(Senha.gerarSenha(passwordLength))
+          setModalVisible(true)
+        }}
       >
-        <Text style={ styles.textoBotao }>Gerar Senha</Text>
+        <Text style={styles.textoBotao}>Gerar Senha</Text>
       </TouchableOpacity>
+
+
+      <PasswordModal
+        visible={modalVisible}
+        password={password}
+        onClose={() => setModalVisible(false)}
+        onSave={() => {
+          // salvar senha
+          setModalVisible(false);
+        }}
+      />
     </SafeAreaView>
   );
 }
