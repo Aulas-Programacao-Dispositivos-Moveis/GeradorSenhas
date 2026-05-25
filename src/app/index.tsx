@@ -2,7 +2,7 @@ import Slider from '@react-native-community/slider';
 import { useState } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import PasswordModal from '../components/passwordModal';
+import PasswordModal from '../components/PasswordModal';
 import { colors } from "../const/Colors";
 import Senha from '../utils/Senha';
 
