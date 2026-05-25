@@ -28,7 +28,7 @@ export default function RootLayout() {
           />
         ),
       }} />
-      <Tabs.Screen name="storage" options={{
+      <Tabs.Screen name="passwords" options={{
         tabBarIcon: ({ color, size, focused }) => (
           <Ionicons
             name={focused ? "lock-closed" : "lock-closed-outline"}
