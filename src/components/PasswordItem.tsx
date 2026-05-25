@@ -1,4 +1,5 @@
 import { Feather, MaterialCommunityIcons } from "@expo/vector-icons";
+import { setStringAsync } from "expo-clipboard";
 import { useState } from "react";
 import { Pressable, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { colors } from "../const/Colors";
@@ -11,6 +12,12 @@ type PasswordItemProps = {
 export function PasswordItem({ data, removePassword }: PasswordItemProps) {
     const [showPassword, setShowPassword] = useState(false);
 
+    const copyToClipboard = async () => {
+        await setStringAsync(data);
+        //ToastAndroid.show("Senha copiada!", ToastAndroid.SHORT);
+        alert("Senha copiada!");
+    }
+
     return (
         <View>
             <Pressable onLongPress={removePassword} style={estilo.container}>
@@ -19,7 +26,7 @@ export function PasswordItem({ data, removePassword }: PasswordItemProps) {
                 </Text>
 
                 <View style={estilo.actions}>
-                    <TouchableOpacity style={estilo.iconButton}>
+                    <TouchableOpacity onPress={copyToClipboard} style={estilo.iconButton}>
                         <Feather name="copy" size={22} color={colors.white} />
                     </TouchableOpacity>
 
