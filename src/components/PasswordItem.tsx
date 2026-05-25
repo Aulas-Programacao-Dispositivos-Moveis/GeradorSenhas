@@ -1,6 +1,6 @@
 import { Feather, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useState } from "react";
-import { Pressable, Text, TouchableOpacity, View } from "react-native";
+import { Pressable, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { colors } from "../const/Colors";
 
 type PasswordItemProps = {
@@ -13,17 +13,17 @@ export function PasswordItem({ data, removePassword }: PasswordItemProps) {
 
     return (
         <View>
-            <Pressable onLongPress={removePassword}>
-                <Text>
+            <Pressable onLongPress={removePassword} style={estilo.container}>
+                <Text style={estilo.text}>
                     {showPassword ? data : '*'.repeat(data.length)}
                 </Text>
 
-                <View>
-                    <TouchableOpacity>
+                <View style={estilo.actions}>
+                    <TouchableOpacity style={estilo.iconButton}>
                         <Feather name="copy" size={22} color={colors.white} />
                     </TouchableOpacity>
 
-                    <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
+                    <TouchableOpacity onPress={() => setShowPassword(!showPassword)} style={estilo.iconButton}>
                         <MaterialCommunityIcons
                             name={showPassword ? 'eye-off' : 'eye'}
                             size={24}
@@ -35,3 +35,28 @@ export function PasswordItem({ data, removePassword }: PasswordItemProps) {
         </View>
     );
 }
+
+const estilo = StyleSheet.create({
+    container: {
+        backgroundColor: "#0e0e0e",
+        padding: 8,
+        marginBottom: 14,
+        borderRadius: 8,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between'
+    },
+    text: {
+        color: "#FFF",
+        fontSize: 16,
+        paddingLeft: 8
+    },
+    actions: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 12
+    },
+    iconButton: {
+        padding: 4
+    }
+})
